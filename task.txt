@@ -1,0 +1,24 @@
+named parameters --DONE
+use count(1) or count(*) --DONE
+update for deletion move from loop using where in --DONE
+//This should be on top rather than here, after insert we have to set the flag to true
+//$selectdistsync = selectone("SELECT * FROM pre_distributor_syncs WHERE distributor_id = '$d_code' and sync_date = '$curdate'");
+
+//if ($selectdistsync) {
+//} else {
+//$sql = "insert into pre_distributor_syncs(distributor_id,sync_date) values ('$d_code','$curdate')";
+//mysqli_query($link, $sql);
+//}
+
+                    // caching for stock report
+                    // // this can be cached using simple array using distid and itemcode key
+                    // $q = "select * from pre_stockreports where distid = '$LGBILLINGCODE' AND itemcode='$code
+
+
+// Please use count(1) or count(id) instead of selecting the data
+$selectdistsync1 = selectone("SELECT * FROM pre_distributor_syncs WHERE distributor_id = '$d_code' and sync_date = '$sale_date'");
+
+if ($selectdistsync1) {
+    $sql = "UPDATE pre_distributor_syncs set sale_date = '$sale_date' WHERE distributor_id='$d_code' AND date(sync_date)= '$sale_date'";
+    mysqli_query($link, $sql);
+}
